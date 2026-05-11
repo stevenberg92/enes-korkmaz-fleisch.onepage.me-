@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Fleischerei Korkmaz – Online Bestellung</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --red:    #b91c1c;
+      --dark:   #1a0a00;
+      --cream:  #fdf6ec;
+      --card:   #fff;
+      --border: #e5d5c0;
+      --text:   #3b1f0a;
+      --muted:  #7a5c3e;
+    }
+
+    body {
+      font-family: 'Segoe UI', system-ui, sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--dark);
+      color: #fff;
+      padding: 0 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,.4);
+    }
+    .logo { display: flex; align-items: center; gap: .75rem; }
+    .logo svg { width: 36px; height: 36px; fill: #e9a04a; }
+    .logo span { font-size: 1.35rem; font-weight: 700; letter-spacing: .5px; }
+    .logo small { display: block; font-size: .7rem; font-weight: 400; color: #c4a87a; letter-spacing: 1px; text-transform: uppercase; }
+
+    .cart-btn {
+      background: var(--red);
+      border: none;
+      color: #fff;
+      padding: .55rem 1.1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      transition: background .2s;
+    }
+    .cart-btn:hover { background: #991b1b; }
+    .cart-badge {
+      background: #fff;
+      color: var(--red);
+      border-radius: 999px;
+      font-size: .75rem;
+      font-weight: 700;
+      padding: .1rem .45rem;
+      min-width: 20px;
+      text-align: center;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #3b1f0a 0%, #6b2e0e 50%, #9a3b12 100%);
+      color: #fff;
+      text-align: center;
+      padding: 4rem 1.5rem 3rem;
+    }
+    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: .5rem; }
+    .hero p { font-size: 1.05rem; color: #e9c49a; max-width: 520px; margin: 0 auto; }
+    .hero-badge {
+      display: inline-block;
+      background: #e9a04a;
+      color: var(--dark);
+      font-size: .8rem;
+      font-weight: 700;
+      padding: .25rem .9rem;
+      border-radius: 999px;
+      margin-bottom: 1rem;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    /* ── PRODUCTS ── */
+    .section-title {
+      text-align: center;
+      padding: 2.5rem 1rem .5rem;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+    .section-sub {
+      text-align: center;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      font-size: .95rem;
+    }
+
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1.25rem;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+      transition: transform .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
+
+    .card-img {
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 4.5rem;
+      background: linear-gradient(135deg, #fdf0e0, #f5dfc0);
+    }
+
+    .card-body { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
+    .card-category {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .8px;
+      color: var(--red);
+      font-weight: 700;
+      margin-bottom: .3rem;
+    }
+    .card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .25rem; }
+    .card-desc { font-size: .82rem; color: var(--muted); margin-bottom: .8rem; flex: 1; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
+    .card-price { font-size: 1.15rem; font-weight: 800; color: var(--red); }
+    .card-unit { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
+
+    .qty-ctrl {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      background: var(--cream);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: .25rem .4rem;
+    }
+    .qty-ctrl button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--text);
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 4px;
+      transition: background .15s;
+    }
+    .qty-ctrl button:hover { background: var(--border); }
+    .qty-ctrl span { font-size: .95rem; font-weight: 600; min-width: 20px; text-align: center; }
+
+    .add-btn {
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: .4rem .85rem;
+      font-size: .85rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background .2s;
+      white-space: nowrap;
+    }
+    .add-btn:hover { background: #991b1b; }
+
+    /* ── CART DRAWER ── */
+    .overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,.45);
+      z-index: 200;
+      opacity: 0; pointer-events: none;
+      transition: opacity .25s;
+    }
+    .overlay.open { opacity: 1; pointer-events: all; }
+
+    .drawer {
+      position: fixed;
+      top: 0; right: 0; bottom: 0;
+      width: min(420px, 100vw);
+      background: #fff;
+      z-index: 201;
+      display: flex;
+      flex-direction: column;
+      transform: translateX(100%);
+      transition: transform .3s cubic-bezier(.4,0,.2,1);
+      box-shadow: -8px 0 32px rgba(0,0,0,.2);
+    }
+    .drawer.open { transform: translateX(0); }
+
+    .drawer-header {
+      background: var(--dark);
+      color: #fff;
+      padding: 1.1rem 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .drawer-header h2 { font-size: 1.1rem; }
+    .close-btn {
+      background: none; border: none; color: #fff;
+      font-size: 1.5rem; cursor: pointer; line-height: 1;
+    }
+
+    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.2rem; }
+    .cart-empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 3rem 1rem;
+      font-size: .95rem;
+    }
+
+    .cart-item {
+      display: flex;
+      gap: .8rem;
+      align-items: center;
+      padding: .85rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .ci-emoji { font-size: 2rem; flex-shrink: 0; }
+    .ci-info { flex: 1; }
+    .ci-name { font-weight: 600; font-size: .9rem; }
+    .ci-price { font-size: .82rem; color: var(--muted); }
+    .ci-controls { display: flex; align-items: center; gap: .4rem; }
+    .ci-total { font-weight: 700; font-size: .9rem; color: var(--red); min-width: 52px; text-align: right; }
+    .ci-remove {
+      background: none; border: none; cursor: pointer;
+      color: #ccc; font-size: 1rem; transition: color .15s;
+    }
+    .ci-remove:hover { color: var(--red); }
+
+    .drawer-footer {
+      padding: 1.2rem 1.4rem;
+      border-top: 1px solid var(--border);
+      background: #fafafa;
+      flex-shrink: 0;
+    }
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: .88rem;
+      color: var(--muted);
+      margin-bottom: .35rem;
+    }
+    .summary-total {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text);
+      margin: .7rem 0 1.2rem;
+      padding-top: .6rem;
+      border-top: 2px solid var(--border);
+    }
+
+    /* ── ORDER FORM ── */
+    .form-section {
+      padding: .5rem 0 1rem;
+    }
+    .form-section h3 { font-size: .95rem; font-weight: 700; margin-bottom: .7rem; color: var(--text); }
+    .form-group { margin-bottom: .6rem; }
+    .form-group label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: .2rem; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%;
+      border: 1px solid var(--border);
+      border-radius: 7px;
+      padding: .45rem .65rem;
+      font-size: .88rem;
+      font-family: inherit;
+      background: #fff;
+      color: var(--text);
+      transition: border-color .15s;
+    }
+    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+      outline: none;
+      border-color: var(--red);
+    }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
+
+    /* ── PAYPAL BUTTON AREA ── */
+    #paypal-button-container { margin-top: .5rem; }
+
+    .checkout-note {
+      font-size: .75rem;
+      color: var(--muted);
+      text-align: center;
+      margin-top: .6rem;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--dark);
+      color: #c4a87a;
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: .82rem;
+    }
+    footer strong { color: #fff; }
+
+    /* ── TOAST ── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem; left: 50%;
+      transform: translateX(-50%) translateY(80px);
+      background: #1a1a1a;
+      color: #fff;
+      padding: .65rem 1.4rem;
+      border-radius: 30px;
+      font-size: .88rem;
+      font-weight: 500;
+      opacity: 0;
+      transition: opacity .25s, transform .3s;
+      z-index: 999;
+      pointer-events: none;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo">
+    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
+      <path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4zm0 4c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4zm0 22.4c-4 0-7.6-2-9.6-5.2.04-3.2 6.4-4.96 9.6-4.96 3.2 0 9.56 1.76 9.6 4.96-2 3.2-5.6 5.2-9.6 5.2z"/>
+    </svg>
+    <div>
+      <span>Fleischerei Korkmaz</span>
+      <small>Frische Qualität seit 1998</small>
+    </div>
+  </div>
+  <button class="cart-btn" onclick="toggleCart()">
+    🛒 Warenkorb
+    <span class="cart-badge" id="cart-count">0</span>
+  </button>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Online Bestellung</div>
+  <h1>Frisches Fleisch direkt vom Metzger</h1>
+  <p>Wählen Sie aus unseren hochwertigen Fleischprodukten und bezahlen Sie bequem per PayPal.</p>
+</div>
+
+<!-- PRODUCTS -->
+<h2 class="section-title">Unsere Produkte</h2>
+<p class="section-sub">Alle Preise pro Kilogramm · Frische Tagesware</p>
+
+<div class="products" id="products"></div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Fleischerei Korkmaz</strong> · Frische Qualität seit 1998<br>
+  Alle Produkte frisch und aus kontrollierter Herkunft · MwSt. inklusive
+</footer>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+
+<!-- CART DRAWER -->
+<div class="drawer" id="drawer">
+  <div class="drawer-header">
+    <h2>🛒 Warenkorb</h2>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+
+  <div class="cart-items" id="cart-items">
+    <div class="cart-empty">Ihr Warenkorb ist leer.</div>
+  </div>
+
+  <div class="drawer-footer" id="drawer-footer" style="display:none">
+    <div class="form-section">
+      <h3>Ihre Angaben</h3>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Vorname *</label>
+          <input type="text" id="f-vorname" placeholder="Max" />
+        </div>
+        <div class="form-group">
+          <label>Nachname *</label>
+          <input type="text" id="f-nachname" placeholder="Mustermann" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label>E-Mail *</label>
+        <input type="email" id="f-email" placeholder="max@beispiel.de" />
+      </div>
+      <div class="form-group">
+        <label>Telefon</label>
+        <input type="tel" id="f-telefon" placeholder="+49 123 456789" />
+      </div>
+      <div class="form-group">
+        <label>Abholung / Anmerkungen</label>
+        <textarea id="f-notiz" rows="2" placeholder="z.B. gewünschter Abholtag ..."></textarea>
+      </div>
+    </div>
+
+    <div class="summary-row"><span>Zwischensumme</span><span id="sub-total">0,00 €</span></div>
+    <div class="summary-row"><span>MwSt. (19 %)</span><span id="tax-total">0,00 €</span></div>
+    <div class="summary-total"><span>Gesamtbetrag</span><span id="grand-total">0,00 €</span></div>
+
+    <div id="paypal-button-container"></div>
+    <p class="checkout-note">Sichere Zahlung über PayPal · SSL-verschlüsselt</p>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- PayPal SDK -->
+<!-- WICHTIG: Ersetzen Sie "YOUR_PAYPAL_CLIENT_ID" mit Ihrer echten PayPal Client-ID -->
+<!-- Sandbox-Test Client-ID: sb (für Tests) -->
+<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR&locale=de_DE"></script>
+
+<script>
+const PRODUCTS = [
+  {
+    id: 1,
+    name: "Rinderbrustfilet",
+    category: "Rind",
+    emoji: "🥩",
+    desc: "Zartes Brustfilet vom deutschen Rind, ideal zum Schmoren und Kochen.",
+    price: 24.90
+  },
+  {
+    id: 2,
+    name: "Hähnchenkeule",
+    category: "Geflügel",
+    emoji: "🍗",
+    desc: "Saftige Hähnchenkeule, aus Freilandhaltung, vielseitig verwendbar.",
+    price: 5.90
+  },
+  {
+    id: 3,
+    name: "Hähnchenflügel",
+    category: "Geflügel",
+    emoji: "🍗",
+    desc: "Knusprige Hähnchenflügel, perfekt für den Grill oder Backofen.",
+    price: 4.50
+  },
+  {
+    id: 4,
+    name: "Putenbrust",
+    category: "Geflügel",
+    emoji: "🍗",
+    desc: "Magere Putenbrust, zartes Fleisch aus verantwortungsvoller Haltung.",
+    price: 9.90
+  },
+  {
+    id: 5,
+    name: "Lammkeule",
+    category: "Lamm",
+    emoji: "🥩",
+    desc: "Klassische Lammkeule, würzig im Geschmack – ein Festtagsgericht.",
+    price: 19.90
+  },
+  {
+    id: 6,
+    name: "Lammrücken",
+    category: "Lamm",
+    emoji: "🥩",
+    desc: "Zarter Lammrücken, besonders aromatisch und feinfaserig.",
+    price: 22.90
+  },
+  {
+    id: 7,
+    name: "Lammkotelett",
+    category: "Lamm",
+    emoji: "🥩",
+    desc: "Saftige Lammkoteletts, ideal für die Pfanne oder den Grill.",
+    price: 21.50
+  },
+  {
+    id: 8,
+    name: "Rinderhüfte",
+    category: "Rind",
+    emoji: "🥩",
+    desc: "Magere Rinderhüfte mit feinem Geschmack, klassisch für Braten.",
+    price: 22.90
+  }
+];
+
+let cart = {};
+
+function fmt(n) {
+  return n.toFixed(2).replace('.', ',') + ' €';
+}
+
+function renderProducts() {
+  const el = document.getElementById('products');
+  el.innerHTML = PRODUCTS.map(p => `
+    <div class="card">
+      <div class="card-img">${p.emoji}</div>
+      <div class="card-body">
+        <div class="card-category">${p.category}</div>
+        <div class="card-name">${p.name}</div>
+        <div class="card-desc">${p.desc}</div>
+        <div class="card-footer">
+          <div>
+            <div class="card-price">${fmt(p.price)}</div>
+            <div class="card-unit">pro kg</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.5rem">
+            <div class="qty-ctrl">
+              <button onclick="changeQty(${p.id},-1)">−</button>
+              <span id="qty-${p.id}">1</span>
+              <button onclick="changeQty(${p.id},+1)">+</button>
+            </div>
+            <button class="add-btn" onclick="addToCart(${p.id})">+ Hinzufügen</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+const qtyState = {};
+PRODUCTS.forEach(p => qtyState[p.id] = 1);
+
+function changeQty(id, delta) {
+  qtyState[id] = Math.max(1, (qtyState[id] || 1) + delta);
+  document.getElementById('qty-' + id).textContent = qtyState[id];
+}
+
+function addToCart(id) {
+  const p = PRODUCTS.find(x => x.id === id);
+  const qty = qtyState[id] || 1;
+  if (cart[id]) {
+    cart[id].qty += qty;
+  } else {
+    cart[id] = { ...p, qty };
+  }
+  updateCartUI();
+  showToast(`${p.name} (${qty} kg) zum Warenkorb hinzugefügt`);
+}
+
+function removeFromCart(id) {
+  delete cart[id];
+  updateCartUI();
+}
+
+function changeCartQty(id, delta) {
+  if (!cart[id]) return;
+  cart[id].qty = Math.max(1, cart[id].qty + delta);
+  updateCartUI();
+}
+
+function cartTotal() {
+  return Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
+}
+
+function updateCartUI() {
+  const items = Object.values(cart);
+  const count = items.reduce((s, i) => s + i.qty, 0);
+  document.getElementById('cart-count').textContent = count;
+
+  const el = document.getElementById('cart-items');
+  if (!items.length) {
+    el.innerHTML = '<div class="cart-empty">Ihr Warenkorb ist leer.</div>';
+    document.getElementById('drawer-footer').style.display = 'none';
+    return;
+  }
+
+  el.innerHTML = items.map(i => `
+    <div class="cart-item">
+      <div class="ci-emoji">${i.emoji}</div>
+      <div class="ci-info">
+        <div class="ci-name">${i.name}</div>
+        <div class="ci-price">${fmt(i.price)}/kg</div>
+      </div>
+      <div class="ci-controls">
+        <div class="qty-ctrl">
+          <button onclick="changeCartQty(${i.id},-1)">−</button>
+          <span>${i.qty}</span>
+          <button onclick="changeCartQty(${i.id},+1)">+</button>
+        </div>
+        <button class="ci-remove" onclick="removeFromCart(${i.id})">✕</button>
+      </div>
+      <div class="ci-total">${fmt(i.price * i.qty)}</div>
+    </div>
+  `).join('');
+
+  const total = cartTotal();
+  const tax = total - total / 1.19;
+  document.getElementById('sub-total').textContent = fmt(total - tax);
+  document.getElementById('tax-total').textContent = fmt(tax);
+  document.getElementById('grand-total').textContent = fmt(total);
+
+  const footer = document.getElementById('drawer-footer');
+  footer.style.display = 'block';
+  renderPayPal();
+}
+
+let paypalRendered = false;
+function renderPayPal() {
+  if (paypalRendered) return;
+  if (typeof paypal === 'undefined') return;
+  paypalRendered = true;
+
+  paypal.Buttons({
+    style: {
+      layout: 'vertical',
+      color: 'gold',
+      shape: 'rect',
+      label: 'pay'
+    },
+    createOrder(data, actions) {
+      const vorname = document.getElementById('f-vorname').value.trim();
+      const nachname = document.getElementById('f-nachname').value.trim();
+      const email = document.getElementById('f-email').value.trim();
+      if (!vorname || !nachname || !email) {
+        showToast('Bitte füllen Sie Vor- und Nachname sowie E-Mail aus.');
+        return Promise.reject();
+      }
+      const total = cartTotal().toFixed(2);
+      return actions.order.create({
+        purchase_units: [{
+          description: 'Bestellung – Fleischerei Korkmaz',
+          amount: { currency_code: 'EUR', value: total }
+        }]
+      });
+    },
+    onApprove(data, actions) {
+      return actions.order.capture().then(details => {
+        const name = details.payer.name.given_name;
+        cart = {};
+        paypalRendered = false;
+        document.getElementById('paypal-button-container').innerHTML = '';
+        updateCartUI();
+        toggleCart();
+        showToast(`Vielen Dank, ${name}! Ihre Bestellung wurde erfolgreich aufgegeben.`);
+      });
+    },
+    onError(err) {
+      showToast('Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut.');
+      console.error(err);
+    }
+  }).render('#paypal-button-container');
+}
+
+function toggleCart() {
+  const drawer = document.getElementById('drawer');
+  const overlay = document.getElementById('overlay');
+  const open = drawer.classList.toggle('open');
+  overlay.classList.toggle('open', open);
+  document.body.style.overflow = open ? 'hidden' : '';
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+
+renderProducts();
+</script>
+</body>
+</html>
