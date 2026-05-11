@@ -9,12 +9,14 @@
 
     :root {
       --red:    #b91c1c;
-      --dark:   #1a0a00;
+      --red2:   #991b1b;
+      --dark:   #1c0d00;
       --cream:  #fdf6ec;
-      --card:   #fff;
-      --border: #e5d5c0;
-      --text:   #3b1f0a;
-      --muted:  #7a5c3e;
+      --white:  #ffffff;
+      --border: #e2cdb0;
+      --text:   #2c1404;
+      --muted:  #8a6040;
+      --green:  #15803d;
     }
 
     body {
@@ -28,657 +30,670 @@
     header {
       background: var(--dark);
       color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
       padding: 0 2rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      box-shadow: 0 2px 12px rgba(0,0,0,.4);
+      height: 68px;
+      box-shadow: 0 2px 10px rgba(0,0,0,.5);
     }
-    .logo { display: flex; align-items: center; gap: .75rem; }
-    .logo svg { width: 36px; height: 36px; fill: #e9a04a; }
-    .logo span { font-size: 1.35rem; font-weight: 700; letter-spacing: .5px; }
-    .logo small { display: block; font-size: .7rem; font-weight: 400; color: #c4a87a; letter-spacing: 1px; text-transform: uppercase; }
-
-    .cart-btn {
-      background: var(--red);
-      border: none;
-      color: #fff;
-      padding: .55rem 1.1rem;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: .95rem;
-      display: flex;
-      align-items: center;
-      gap: .5rem;
-      transition: background .2s;
-    }
-    .cart-btn:hover { background: #991b1b; }
-    .cart-badge {
-      background: #fff;
-      color: var(--red);
-      border-radius: 999px;
-      font-size: .75rem;
-      font-weight: 700;
-      padding: .1rem .45rem;
-      min-width: 20px;
-      text-align: center;
-    }
+    .logo-icon { font-size: 2rem; }
+    .logo-text { font-size: 1.25rem; font-weight: 800; line-height: 1.2; }
+    .logo-text small { display: block; font-size: .65rem; font-weight: 400; color: #c9a87a; letter-spacing: 1.5px; text-transform: uppercase; }
 
     /* ── HERO ── */
     .hero {
-      background: linear-gradient(135deg, #3b1f0a 0%, #6b2e0e 50%, #9a3b12 100%);
+      background: linear-gradient(160deg, #2d0e00 0%, #7a2c0a 60%, #a83a10 100%);
       color: #fff;
       text-align: center;
-      padding: 4rem 1.5rem 3rem;
+      padding: 3.5rem 1.5rem 2.5rem;
     }
-    .hero h1 { font-size: clamp(1.8rem, 4vw, 2.8rem); font-weight: 800; margin-bottom: .5rem; }
-    .hero p { font-size: 1.05rem; color: #e9c49a; max-width: 520px; margin: 0 auto; }
-    .hero-badge {
+    .hero-tag {
       display: inline-block;
       background: #e9a04a;
-      color: var(--dark);
-      font-size: .8rem;
-      font-weight: 700;
-      padding: .25rem .9rem;
-      border-radius: 999px;
-      margin-bottom: 1rem;
-      letter-spacing: .5px;
+      color: #1c0d00;
+      font-size: .72rem;
+      font-weight: 800;
+      letter-spacing: 1.5px;
       text-transform: uppercase;
+      padding: .3rem 1rem;
+      border-radius: 999px;
+      margin-bottom: .9rem;
     }
+    .hero h1 { font-size: clamp(1.6rem, 4vw, 2.6rem); font-weight: 900; margin-bottom: .5rem; }
+    .hero p { color: #f0cfa0; font-size: .95rem; max-width: 480px; margin: 0 auto; }
 
-    /* ── PRODUCTS ── */
-    .section-title {
-      text-align: center;
-      padding: 2.5rem 1rem .5rem;
-      font-size: 1.5rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-    .section-sub {
-      text-align: center;
-      color: var(--muted);
-      margin-bottom: 2rem;
-      font-size: .95rem;
-    }
-
-    .products {
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 1000px;
+      margin: 2.5rem auto;
+      padding: 0 1.25rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1.25rem;
-      max-width: 1100px;
-      margin: 0 auto;
-      padding: 0 1.5rem 3rem;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      align-items: start;
+    }
+    @media (max-width: 720px) {
+      .page { grid-template-columns: 1fr; }
     }
 
-    .card {
-      background: var(--card);
+    /* ── CARD ── */
+    .box {
+      background: var(--white);
       border: 1px solid var(--border);
       border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 2px 8px rgba(0,0,0,.06);
-      transition: transform .2s, box-shadow .2s;
-      display: flex;
-      flex-direction: column;
+      padding: 1.5rem 1.4rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,.05);
     }
-    .card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(0,0,0,.12); }
-
-    .card-img {
-      height: 160px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 4.5rem;
-      background: linear-gradient(135deg, #fdf0e0, #f5dfc0);
-    }
-
-    .card-body { padding: 1rem 1.1rem 1.2rem; flex: 1; display: flex; flex-direction: column; }
-    .card-category {
-      font-size: .7rem;
-      text-transform: uppercase;
-      letter-spacing: .8px;
-      color: var(--red);
-      font-weight: 700;
-      margin-bottom: .3rem;
-    }
-    .card-name { font-size: 1.05rem; font-weight: 700; margin-bottom: .25rem; }
-    .card-desc { font-size: .82rem; color: var(--muted); margin-bottom: .8rem; flex: 1; }
-    .card-footer { display: flex; align-items: center; justify-content: space-between; margin-top: auto; }
-    .card-price { font-size: 1.15rem; font-weight: 800; color: var(--red); }
-    .card-unit { font-size: .72rem; color: var(--muted); margin-top: .1rem; }
-
-    .qty-ctrl {
+    .box-title {
+      font-size: 1rem;
+      font-weight: 800;
+      margin-bottom: 1.2rem;
+      padding-bottom: .7rem;
+      border-bottom: 2px solid var(--border);
       display: flex;
       align-items: center;
-      gap: .4rem;
+      gap: .5rem;
+    }
+
+    /* ── PRODUCT TABLE ── */
+    .product-list { display: flex; flex-direction: column; gap: .6rem; }
+
+    .product-row {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: .75rem;
+      padding: .7rem .8rem;
+      border-radius: 10px;
+      border: 1px solid var(--border);
       background: var(--cream);
+      transition: border-color .15s, background .15s;
+    }
+    .product-row.active {
+      border-color: #c97a3a;
+      background: #fff8f0;
+    }
+
+    .p-emoji { font-size: 1.8rem; }
+    .p-info {}
+    .p-name { font-weight: 700; font-size: .93rem; }
+    .p-cat  { font-size: .72rem; color: var(--muted); text-transform: uppercase; letter-spacing: .6px; }
+
+    .p-price { font-size: .88rem; font-weight: 700; color: var(--red); text-align: right; white-space: nowrap; }
+    .p-unit  { font-size: .7rem; color: var(--muted); }
+
+    .qty-wrap {
+      display: flex;
+      align-items: center;
+      gap: .3rem;
+      background: #fff;
       border: 1px solid var(--border);
       border-radius: 8px;
-      padding: .25rem .4rem;
+      padding: .2rem .35rem;
     }
-    .qty-ctrl button {
-      background: none;
+    .qty-wrap button {
+      background: none; border: none; cursor: pointer;
+      font-size: 1rem; color: var(--text);
+      width: 24px; height: 24px;
+      display: flex; align-items: center; justify-content: center;
+      border-radius: 5px;
+      transition: background .12s;
+    }
+    .qty-wrap button:hover { background: var(--border); }
+    .qty-wrap input {
+      width: 42px;
+      text-align: center;
       border: none;
-      cursor: pointer;
-      font-size: 1.1rem;
+      font-size: .9rem;
+      font-weight: 600;
+      font-family: inherit;
       color: var(--text);
-      width: 24px;
-      height: 24px;
+      background: transparent;
+      outline: none;
+      -moz-appearance: textfield;
+    }
+    .qty-wrap input::-webkit-inner-spin-button,
+    .qty-wrap input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    .qty-label { font-size: .7rem; color: var(--muted); text-align: center; margin-top: .1rem; }
+
+    /* ── SUMMARY SIDEBAR ── */
+    .summary-items { margin-bottom: 1rem; min-height: 60px; }
+    .si-row {
       display: flex;
+      justify-content: space-between;
+      font-size: .85rem;
+      padding: .35rem 0;
+      border-bottom: 1px solid #f0e4d0;
+    }
+    .si-row:last-child { border-bottom: none; }
+    .si-name { color: var(--text); }
+    .si-val  { font-weight: 600; color: var(--text); }
+
+    .empty-msg { color: var(--muted); font-size: .82rem; text-align: center; padding: .8rem 0; }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text);
+      padding: .7rem 0 0;
+      border-top: 2px solid var(--border);
+      margin-top: .3rem;
+    }
+    .total-note { font-size: .72rem; color: var(--muted); text-align: right; margin-top: .2rem; }
+
+    /* ── CONTACT FORM ── */
+    .form-grid { display: grid; gap: .85rem; }
+    .form-group { display: flex; flex-direction: column; gap: .25rem; }
+    .form-group label {
+      font-size: .78rem;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+    .form-group label .req { color: var(--red); margin-left: 2px; }
+    .form-group input, .form-group select, .form-group textarea {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: .55rem .75rem;
+      font-size: .92rem;
+      font-family: inherit;
+      color: var(--text);
+      background: #fff;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(185,28,28,.1);
+    }
+    .form-group input.error,
+    .form-group select.error {
+      border-color: var(--red);
+      background: #fff5f5;
+    }
+    .field-error { font-size: .75rem; color: var(--red); margin-top: .1rem; display: none; }
+    .field-error.show { display: block; }
+
+    /* ── AGB ── */
+    .agb-wrap {
+      display: flex;
+      align-items: flex-start;
+      gap: .6rem;
+      background: #fff8f0;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: .85rem 1rem;
+      cursor: pointer;
+      transition: border-color .15s;
+    }
+    .agb-wrap:hover { border-color: #c97a3a; }
+    .agb-wrap.error { border-color: var(--red); background: #fff5f5; }
+    .agb-wrap input[type=checkbox] {
+      width: 18px; height: 18px;
+      accent-color: var(--red);
+      margin-top: .1rem;
+      flex-shrink: 0;
+      cursor: pointer;
+    }
+    .agb-text { font-size: .82rem; color: var(--text); line-height: 1.5; }
+    .agb-text a { color: var(--red); text-decoration: underline; cursor: pointer; }
+
+    /* ── SUBMIT ── */
+    .submit-btn {
+      width: 100%;
+      background: var(--red);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      padding: .9rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 800;
+      cursor: pointer;
+      transition: background .2s, transform .1s;
+      margin-top: .5rem;
+      letter-spacing: .3px;
+    }
+    .submit-btn:hover { background: var(--red2); }
+    .submit-btn:active { transform: scale(.98); }
+    .submit-btn:disabled { background: #ccc; cursor: not-allowed; }
+
+    .secure-note {
+      text-align: center;
+      font-size: .73rem;
+      color: var(--muted);
+      margin-top: .5rem;
+    }
+
+    /* ── SUCCESS SCREEN ── */
+    .success-screen {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,.55);
+      z-index: 500;
       align-items: center;
       justify-content: center;
-      border-radius: 4px;
-      transition: background .15s;
+      padding: 1.5rem;
     }
-    .qty-ctrl button:hover { background: var(--border); }
-    .qty-ctrl span { font-size: .95rem; font-weight: 600; min-width: 20px; text-align: center; }
-
-    .add-btn {
+    .success-screen.show { display: flex; }
+    .success-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 2.5rem 2rem;
+      max-width: 420px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0,0,0,.35);
+      animation: popIn .3s cubic-bezier(.34,1.56,.64,1);
+    }
+    @keyframes popIn { from { transform: scale(.85); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+    .success-icon { font-size: 4rem; margin-bottom: 1rem; }
+    .success-card h2 { font-size: 1.4rem; font-weight: 900; margin-bottom: .5rem; color: var(--green); }
+    .success-card p { font-size: .9rem; color: var(--muted); line-height: 1.6; margin-bottom: 1.5rem; }
+    .success-back {
       background: var(--red);
       color: #fff;
       border: none;
       border-radius: 8px;
-      padding: .4rem .85rem;
-      font-size: .85rem;
-      font-weight: 600;
+      padding: .65rem 1.5rem;
+      font-size: .92rem;
+      font-weight: 700;
       cursor: pointer;
       transition: background .2s;
-      white-space: nowrap;
     }
-    .add-btn:hover { background: #991b1b; }
+    .success-back:hover { background: var(--red2); }
 
-    /* ── CART DRAWER ── */
-    .overlay {
-      position: fixed; inset: 0;
-      background: rgba(0,0,0,.45);
-      z-index: 200;
-      opacity: 0; pointer-events: none;
-      transition: opacity .25s;
-    }
-    .overlay.open { opacity: 1; pointer-events: all; }
-
-    .drawer {
+    /* ── AGB MODAL ── */
+    .modal-overlay {
+      display: none;
       position: fixed;
-      top: 0; right: 0; bottom: 0;
-      width: min(420px, 100vw);
-      background: #fff;
-      z-index: 201;
-      display: flex;
-      flex-direction: column;
-      transform: translateX(100%);
-      transition: transform .3s cubic-bezier(.4,0,.2,1);
-      box-shadow: -8px 0 32px rgba(0,0,0,.2);
+      inset: 0;
+      background: rgba(0,0,0,.5);
+      z-index: 600;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
     }
-    .drawer.open { transform: translateX(0); }
-
-    .drawer-header {
+    .modal-overlay.show { display: flex; }
+    .modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 1.8rem 1.6rem;
+      max-width: 560px;
+      width: 100%;
+      max-height: 80vh;
+      overflow-y: auto;
+      box-shadow: 0 16px 48px rgba(0,0,0,.3);
+    }
+    .modal h3 { font-size: 1.1rem; font-weight: 800; margin-bottom: 1rem; }
+    .modal p, .modal li { font-size: .85rem; color: var(--muted); line-height: 1.7; margin-bottom: .6rem; }
+    .modal h4 { font-size: .9rem; font-weight: 700; margin: 1rem 0 .3rem; color: var(--text); }
+    .modal-close {
+      display: block;
+      width: 100%;
       background: var(--dark);
       color: #fff;
-      padding: 1.1rem 1.4rem;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-shrink: 0;
-    }
-    .drawer-header h2 { font-size: 1.1rem; }
-    .close-btn {
-      background: none; border: none; color: #fff;
-      font-size: 1.5rem; cursor: pointer; line-height: 1;
-    }
-
-    .cart-items { flex: 1; overflow-y: auto; padding: 1rem 1.2rem; }
-    .cart-empty {
-      text-align: center;
-      color: var(--muted);
-      padding: 3rem 1rem;
-      font-size: .95rem;
-    }
-
-    .cart-item {
-      display: flex;
-      gap: .8rem;
-      align-items: center;
-      padding: .85rem 0;
-      border-bottom: 1px solid var(--border);
-    }
-    .ci-emoji { font-size: 2rem; flex-shrink: 0; }
-    .ci-info { flex: 1; }
-    .ci-name { font-weight: 600; font-size: .9rem; }
-    .ci-price { font-size: .82rem; color: var(--muted); }
-    .ci-controls { display: flex; align-items: center; gap: .4rem; }
-    .ci-total { font-weight: 700; font-size: .9rem; color: var(--red); min-width: 52px; text-align: right; }
-    .ci-remove {
-      background: none; border: none; cursor: pointer;
-      color: #ccc; font-size: 1rem; transition: color .15s;
-    }
-    .ci-remove:hover { color: var(--red); }
-
-    .drawer-footer {
-      padding: 1.2rem 1.4rem;
-      border-top: 1px solid var(--border);
-      background: #fafafa;
-      flex-shrink: 0;
-    }
-    .summary-row {
-      display: flex;
-      justify-content: space-between;
-      font-size: .88rem;
-      color: var(--muted);
-      margin-bottom: .35rem;
-    }
-    .summary-total {
-      display: flex;
-      justify-content: space-between;
-      font-size: 1.1rem;
-      font-weight: 800;
-      color: var(--text);
-      margin: .7rem 0 1.2rem;
-      padding-top: .6rem;
-      border-top: 2px solid var(--border);
-    }
-
-    /* ── ORDER FORM ── */
-    .form-section {
-      padding: .5rem 0 1rem;
-    }
-    .form-section h3 { font-size: .95rem; font-weight: 700; margin-bottom: .7rem; color: var(--text); }
-    .form-group { margin-bottom: .6rem; }
-    .form-group label { display: block; font-size: .78rem; color: var(--muted); margin-bottom: .2rem; }
-    .form-group input, .form-group select, .form-group textarea {
-      width: 100%;
-      border: 1px solid var(--border);
-      border-radius: 7px;
-      padding: .45rem .65rem;
-      font-size: .88rem;
-      font-family: inherit;
-      background: #fff;
-      color: var(--text);
-      transition: border-color .15s;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      outline: none;
-      border-color: var(--red);
-    }
-    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: .6rem; }
-
-    /* ── PAYPAL BUTTON AREA ── */
-    #paypal-button-container { margin-top: .5rem; }
-
-    .checkout-note {
-      font-size: .75rem;
-      color: var(--muted);
-      text-align: center;
-      margin-top: .6rem;
+      border: none;
+      border-radius: 8px;
+      padding: .65rem;
+      font-size: .9rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 1.2rem;
     }
 
     /* ── FOOTER ── */
     footer {
       background: var(--dark);
-      color: #c4a87a;
+      color: #c9a87a;
       text-align: center;
       padding: 1.5rem 1rem;
-      font-size: .82rem;
+      font-size: .78rem;
+      margin-top: 3rem;
     }
     footer strong { color: #fff; }
-
-    /* ── TOAST ── */
-    .toast {
-      position: fixed;
-      bottom: 1.5rem; left: 50%;
-      transform: translateX(-50%) translateY(80px);
-      background: #1a1a1a;
-      color: #fff;
-      padding: .65rem 1.4rem;
-      border-radius: 30px;
-      font-size: .88rem;
-      font-weight: 500;
-      opacity: 0;
-      transition: opacity .25s, transform .3s;
-      z-index: 999;
-      pointer-events: none;
-    }
-    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- HEADER -->
 <header>
-  <div class="logo">
-    <svg viewBox="0 0 40 40" xmlns="http://www.w3.org/2000/svg">
-      <path d="M20 4C11.2 4 4 11.2 4 20s7.2 16 16 16 16-7.2 16-16S28.8 4 20 4zm0 4c2.2 0 4 1.8 4 4s-1.8 4-4 4-4-1.8-4-4 1.8-4 4-4zm0 22.4c-4 0-7.6-2-9.6-5.2.04-3.2 6.4-4.96 9.6-4.96 3.2 0 9.56 1.76 9.6 4.96-2 3.2-5.6 5.2-9.6 5.2z"/>
-    </svg>
-    <div>
-      <span>Fleischerei Korkmaz</span>
-      <small>Frische Qualität seit 1998</small>
-    </div>
+  <div class="logo-icon">🥩</div>
+  <div class="logo-text">
+    Fleischerei Korkmaz
+    <small>Frische Qualität seit 1998</small>
   </div>
-  <button class="cart-btn" onclick="toggleCart()">
-    🛒 Warenkorb
-    <span class="cart-badge" id="cart-count">0</span>
-  </button>
 </header>
 
-<!-- HERO -->
 <div class="hero">
-  <div class="hero-badge">Online Bestellung</div>
-  <h1>Frisches Fleisch direkt vom Metzger</h1>
-  <p>Wählen Sie aus unseren hochwertigen Fleischprodukten und bezahlen Sie bequem per PayPal.</p>
+  <div class="hero-tag">Online Bestellung</div>
+  <h1>Frisches Fleisch – direkt bestellen</h1>
+  <p>Wählen Sie Ihre gewünschten Produkte, geben Sie Ihre Kontaktdaten an und wir bereiten Ihre Bestellung frisch vor.</p>
 </div>
 
-<!-- PRODUCTS -->
-<h2 class="section-title">Unsere Produkte</h2>
-<p class="section-sub">Alle Preise pro Kilogramm · Frische Tagesware</p>
+<form id="order-form" novalidate>
+  <div class="page">
 
-<div class="products" id="products"></div>
+    <!-- LEFT: PRODUCTS + CONTACT -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
 
-<!-- FOOTER -->
-<footer>
-  <strong>Fleischerei Korkmaz</strong> · Frische Qualität seit 1998<br>
-  Alle Produkte frisch und aus kontrollierter Herkunft · MwSt. inklusive
-</footer>
+      <!-- PRODUCTS -->
+      <div class="box">
+        <div class="box-title">🛒 Produkte wählen</div>
+        <div class="product-list" id="product-list"></div>
+      </div>
 
-<!-- OVERLAY -->
-<div class="overlay" id="overlay" onclick="toggleCart()"></div>
+      <!-- CONTACT -->
+      <div class="box">
+        <div class="box-title">📋 Ihre Kontaktdaten</div>
+        <div class="form-grid">
 
-<!-- CART DRAWER -->
-<div class="drawer" id="drawer">
-  <div class="drawer-header">
-    <h2>🛒 Warenkorb</h2>
-    <button class="close-btn" onclick="toggleCart()">✕</button>
-  </div>
+          <div class="form-group">
+            <label>Vollständiger Name <span class="req">*</span></label>
+            <input type="text" id="f-name" placeholder="Max Mustermann" autocomplete="name" />
+            <span class="field-error" id="err-name">Bitte geben Sie Ihren Namen ein.</span>
+          </div>
 
-  <div class="cart-items" id="cart-items">
-    <div class="cart-empty">Ihr Warenkorb ist leer.</div>
-  </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:.85rem">
+            <div class="form-group">
+              <label>Telefonnummer <span class="req">*</span></label>
+              <input type="tel" id="f-phone" placeholder="+49 170 1234567" autocomplete="tel" />
+              <span class="field-error" id="err-phone">Bitte Telefonnummer angeben.</span>
+            </div>
+            <div class="form-group">
+              <label>Gewünschtes Datum <span class="req">*</span></label>
+              <input type="date" id="f-date" />
+              <span class="field-error" id="err-date">Bitte wählen Sie ein Datum.</span>
+            </div>
+          </div>
 
-  <div class="drawer-footer" id="drawer-footer" style="display:none">
-    <div class="form-section">
-      <h3>Ihre Angaben</h3>
-      <div class="form-row">
-        <div class="form-group">
-          <label>Vorname *</label>
-          <input type="text" id="f-vorname" placeholder="Max" />
+          <div class="form-group">
+            <label>Anmerkungen / Sonderwünsche</label>
+            <textarea id="f-note" rows="3" placeholder="z.B. Fleisch extra dünn schneiden, Lieferhinweise …"></textarea>
+          </div>
+
+          <!-- AGB -->
+          <div>
+            <label class="agb-wrap" id="agb-wrap" for="f-agb">
+              <input type="checkbox" id="f-agb" />
+              <span class="agb-text">
+                Ich habe die <a onclick="openAgb(event)">Allgemeinen Geschäftsbedingungen</a> gelesen und akzeptiere diese. Ich bin einverstanden, dass meine Daten zur Bearbeitung meiner Bestellung verwendet werden.
+              </span>
+            </label>
+            <span class="field-error" id="err-agb">Bitte akzeptieren Sie die AGB um fortzufahren.</span>
+          </div>
+
         </div>
-        <div class="form-group">
-          <label>Nachname *</label>
-          <input type="text" id="f-nachname" placeholder="Mustermann" />
-        </div>
-      </div>
-      <div class="form-group">
-        <label>E-Mail *</label>
-        <input type="email" id="f-email" placeholder="max@beispiel.de" />
-      </div>
-      <div class="form-group">
-        <label>Telefon</label>
-        <input type="tel" id="f-telefon" placeholder="+49 123 456789" />
-      </div>
-      <div class="form-group">
-        <label>Abholung / Anmerkungen</label>
-        <textarea id="f-notiz" rows="2" placeholder="z.B. gewünschter Abholtag ..."></textarea>
       </div>
     </div>
 
-    <div class="summary-row"><span>Zwischensumme</span><span id="sub-total">0,00 €</span></div>
-    <div class="summary-row"><span>MwSt. (19 %)</span><span id="tax-total">0,00 €</span></div>
-    <div class="summary-total"><span>Gesamtbetrag</span><span id="grand-total">0,00 €</span></div>
+    <!-- RIGHT: SUMMARY + SUBMIT -->
+    <div style="display:flex;flex-direction:column;gap:1.5rem">
+      <div class="box" style="position:sticky;top:1rem">
+        <div class="box-title">📦 Bestellübersicht</div>
 
-    <div id="paypal-button-container"></div>
-    <p class="checkout-note">Sichere Zahlung über PayPal · SSL-verschlüsselt</p>
+        <div class="summary-items" id="summary-items">
+          <p class="empty-msg">Noch keine Produkte gewählt.</p>
+        </div>
+
+        <div class="total-row">
+          <span>Gesamtbetrag</span>
+          <span id="grand-total">0,00 €</span>
+        </div>
+        <div class="total-note">inkl. 19% MwSt. · Preise pro kg</div>
+
+        <div style="margin-top:1.4rem">
+          <button type="submit" class="submit-btn" id="submit-btn">
+            Jetzt verbindlich bestellen →
+          </button>
+          <p class="secure-note">🔒 Ihre Daten werden sicher übertragen</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</form>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-screen" id="success-screen">
+  <div class="success-card">
+    <div class="success-icon">✅</div>
+    <h2>Bestellung eingegangen!</h2>
+    <p id="success-msg">Vielen Dank für Ihre Bestellung. Wir werden uns in Kürze telefonisch bei Ihnen melden, um die Details zu bestätigen.</p>
+    <button class="success-back" onclick="resetForm()">Neue Bestellung</button>
   </div>
 </div>
 
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
+<!-- AGB MODAL -->
+<div class="modal-overlay" id="agb-modal">
+  <div class="modal">
+    <h3>Allgemeine Geschäftsbedingungen</h3>
+    <h4>§ 1 Geltungsbereich</h4>
+    <p>Diese AGB gelten für alle Bestellungen, die über die Online-Bestellseite der Fleischerei Korkmaz aufgegeben werden.</p>
+    <h4>§ 2 Vertragsschluss</h4>
+    <p>Mit dem Absenden des Bestellformulars geben Sie ein verbindliches Angebot ab. Der Vertrag kommt zustande, wenn wir Ihre Bestellung telefonisch oder schriftlich bestätigen.</p>
+    <h4>§ 3 Preise & Mengen</h4>
+    <p>Alle angegebenen Preise sind Kilogramm-Preise inkl. der gesetzlichen Mehrwertsteuer (19%). Die tatsächlich abgegebene Menge kann aufgrund natürlicher Schnittgewichte leicht variieren.</p>
+    <h4>§ 4 Abholung</h4>
+    <p>Bestellungen können zu den üblichen Öffnungszeiten abgeholt werden. Das gewünschte Abholdatum dient als Orientierung; wir bemühen uns, Ihre Bestellung rechtzeitig vorzubereiten.</p>
+    <h4>§ 5 Stornierung</h4>
+    <p>Stornierungen sind bis zu 24 Stunden vor dem Abholdatum möglich. Bitte kontaktieren Sie uns telefonisch.</p>
+    <h4>§ 6 Datenschutz</h4>
+    <p>Ihre Kontaktdaten werden ausschließlich zur Bestellabwicklung verwendet und nicht an Dritte weitergegeben.</p>
+    <h4>§ 7 Haftung</h4>
+    <p>Die Fleischerei Korkmaz haftet nicht für Schäden, die durch fehlerhafte Angaben im Bestellformular entstehen.</p>
+    <button class="modal-close" onclick="closeAgb()">Schließen</button>
+  </div>
+</div>
 
-<!-- PayPal SDK -->
-<!-- WICHTIG: Ersetzen Sie "YOUR_PAYPAL_CLIENT_ID" mit Ihrer echten PayPal Client-ID -->
-<!-- Sandbox-Test Client-ID: sb (für Tests) -->
-<script src="https://www.paypal.com/sdk/js?client-id=YOUR_PAYPAL_CLIENT_ID&currency=EUR&locale=de_DE"></script>
+<footer>
+  <strong>Fleischerei Korkmaz</strong> · Frische Qualität seit 1998<br>
+  Alle Produkte frisch und aus kontrollierter Herkunft · Preise inkl. MwSt.
+</footer>
 
 <script>
 const PRODUCTS = [
-  {
-    id: 1,
-    name: "Rinderbrustfilet",
-    category: "Rind",
-    emoji: "🥩",
-    desc: "Zartes Brustfilet vom deutschen Rind, ideal zum Schmoren und Kochen.",
-    price: 24.90
-  },
-  {
-    id: 2,
-    name: "Hähnchenkeule",
-    category: "Geflügel",
-    emoji: "🍗",
-    desc: "Saftige Hähnchenkeule, aus Freilandhaltung, vielseitig verwendbar.",
-    price: 5.90
-  },
-  {
-    id: 3,
-    name: "Hähnchenflügel",
-    category: "Geflügel",
-    emoji: "🍗",
-    desc: "Knusprige Hähnchenflügel, perfekt für den Grill oder Backofen.",
-    price: 4.50
-  },
-  {
-    id: 4,
-    name: "Putenbrust",
-    category: "Geflügel",
-    emoji: "🍗",
-    desc: "Magere Putenbrust, zartes Fleisch aus verantwortungsvoller Haltung.",
-    price: 9.90
-  },
-  {
-    id: 5,
-    name: "Lammkeule",
-    category: "Lamm",
-    emoji: "🥩",
-    desc: "Klassische Lammkeule, würzig im Geschmack – ein Festtagsgericht.",
-    price: 19.90
-  },
-  {
-    id: 6,
-    name: "Lammrücken",
-    category: "Lamm",
-    emoji: "🥩",
-    desc: "Zarter Lammrücken, besonders aromatisch und feinfaserig.",
-    price: 22.90
-  },
-  {
-    id: 7,
-    name: "Lammkotelett",
-    category: "Lamm",
-    emoji: "🥩",
-    desc: "Saftige Lammkoteletts, ideal für die Pfanne oder den Grill.",
-    price: 21.50
-  },
-  {
-    id: 8,
-    name: "Rinderhüfte",
-    category: "Rind",
-    emoji: "🥩",
-    desc: "Magere Rinderhüfte mit feinem Geschmack, klassisch für Braten.",
-    price: 22.90
-  }
+  { id:1, emoji:'🥩', name:'Rinderbrustfilet', cat:'Rind',    price:24.90 },
+  { id:2, emoji:'🍗', name:'Hähnchenkeule',    cat:'Geflügel',price: 5.90 },
+  { id:3, emoji:'🍗', name:'Hähnchenflügel',   cat:'Geflügel',price: 4.50 },
+  { id:4, emoji:'🍗', name:'Putenbrust',        cat:'Geflügel',price: 9.90 },
+  { id:5, emoji:'🥩', name:'Lammkeule',         cat:'Lamm',    price:19.90 },
+  { id:6, emoji:'🥩', name:'Lammrücken',        cat:'Lamm',    price:22.90 },
+  { id:7, emoji:'🥩', name:'Lammkotelett',      cat:'Lamm',    price:21.50 },
+  { id:8, emoji:'🥩', name:'Rinderhüfte',       cat:'Rind',    price:22.90 },
 ];
 
-let cart = {};
+const qty = {};
+PRODUCTS.forEach(p => qty[p.id] = 0);
 
-function fmt(n) {
-  return n.toFixed(2).replace('.', ',') + ' €';
-}
+function fmt(n) { return n.toFixed(2).replace('.', ',') + ' €'; }
 
+/* ── Render product rows ── */
 function renderProducts() {
-  const el = document.getElementById('products');
+  const el = document.getElementById('product-list');
   el.innerHTML = PRODUCTS.map(p => `
-    <div class="card">
-      <div class="card-img">${p.emoji}</div>
-      <div class="card-body">
-        <div class="card-category">${p.category}</div>
-        <div class="card-name">${p.name}</div>
-        <div class="card-desc">${p.desc}</div>
-        <div class="card-footer">
-          <div>
-            <div class="card-price">${fmt(p.price)}</div>
-            <div class="card-unit">pro kg</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:.5rem">
-            <div class="qty-ctrl">
-              <button onclick="changeQty(${p.id},-1)">−</button>
-              <span id="qty-${p.id}">1</span>
-              <button onclick="changeQty(${p.id},+1)">+</button>
-            </div>
-            <button class="add-btn" onclick="addToCart(${p.id})">+ Hinzufügen</button>
-          </div>
+    <div class="product-row" id="row-${p.id}">
+      <div class="p-emoji">${p.emoji}</div>
+      <div class="p-info">
+        <div class="p-name">${p.name}</div>
+        <div class="p-cat">${p.cat}</div>
+      </div>
+      <div style="text-align:right">
+        <div class="p-price">${fmt(p.price)}</div>
+        <div class="p-unit">pro kg</div>
+      </div>
+      <div>
+        <div class="qty-wrap">
+          <button type="button" onclick="setQty(${p.id}, -0.5)">−</button>
+          <input type="number" min="0" step="0.5" value="0" id="qin-${p.id}"
+                 onchange="onQtyInput(${p.id}, this.value)"
+                 oninput="onQtyInput(${p.id}, this.value)" />
+          <button type="button" onclick="setQty(${p.id}, +0.5)">+</button>
         </div>
+        <div class="qty-label">kg</div>
       </div>
     </div>
   `).join('');
 }
 
-const qtyState = {};
-PRODUCTS.forEach(p => qtyState[p.id] = 1);
-
-function changeQty(id, delta) {
-  qtyState[id] = Math.max(1, (qtyState[id] || 1) + delta);
-  document.getElementById('qty-' + id).textContent = qtyState[id];
+function setQty(id, delta) {
+  qty[id] = Math.max(0, +(qty[id] + delta).toFixed(2));
+  document.getElementById('qin-' + id).value = qty[id];
+  updateRow(id);
+  updateSummary();
 }
 
-function addToCart(id) {
-  const p = PRODUCTS.find(x => x.id === id);
-  const qty = qtyState[id] || 1;
-  if (cart[id]) {
-    cart[id].qty += qty;
-  } else {
-    cart[id] = { ...p, qty };
-  }
-  updateCartUI();
-  showToast(`${p.name} (${qty} kg) zum Warenkorb hinzugefügt`);
+function onQtyInput(id, val) {
+  const v = parseFloat(val) || 0;
+  qty[id] = Math.max(0, Math.round(v * 2) / 2);
+  updateRow(id);
+  updateSummary();
 }
 
-function removeFromCart(id) {
-  delete cart[id];
-  updateCartUI();
+function updateRow(id) {
+  document.getElementById('row-' + id).classList.toggle('active', qty[id] > 0);
 }
 
-function changeCartQty(id, delta) {
-  if (!cart[id]) return;
-  cart[id].qty = Math.max(1, cart[id].qty + delta);
-  updateCartUI();
-}
-
-function cartTotal() {
-  return Object.values(cart).reduce((s, i) => s + i.price * i.qty, 0);
-}
-
-function updateCartUI() {
-  const items = Object.values(cart);
-  const count = items.reduce((s, i) => s + i.qty, 0);
-  document.getElementById('cart-count').textContent = count;
-
-  const el = document.getElementById('cart-items');
+function updateSummary() {
+  const items = PRODUCTS.filter(p => qty[p.id] > 0);
+  const el = document.getElementById('summary-items');
   if (!items.length) {
-    el.innerHTML = '<div class="cart-empty">Ihr Warenkorb ist leer.</div>';
-    document.getElementById('drawer-footer').style.display = 'none';
+    el.innerHTML = '<p class="empty-msg">Noch keine Produkte gewählt.</p>';
+    document.getElementById('grand-total').textContent = '0,00 €';
     return;
   }
-
-  el.innerHTML = items.map(i => `
-    <div class="cart-item">
-      <div class="ci-emoji">${i.emoji}</div>
-      <div class="ci-info">
-        <div class="ci-name">${i.name}</div>
-        <div class="ci-price">${fmt(i.price)}/kg</div>
-      </div>
-      <div class="ci-controls">
-        <div class="qty-ctrl">
-          <button onclick="changeCartQty(${i.id},-1)">−</button>
-          <span>${i.qty}</span>
-          <button onclick="changeCartQty(${i.id},+1)">+</button>
-        </div>
-        <button class="ci-remove" onclick="removeFromCart(${i.id})">✕</button>
-      </div>
-      <div class="ci-total">${fmt(i.price * i.qty)}</div>
-    </div>
-  `).join('');
-
-  const total = cartTotal();
-  const tax = total - total / 1.19;
-  document.getElementById('sub-total').textContent = fmt(total - tax);
-  document.getElementById('tax-total').textContent = fmt(tax);
+  let total = 0;
+  el.innerHTML = items.map(p => {
+    const sub = p.price * qty[p.id];
+    total += sub;
+    return `<div class="si-row">
+      <span class="si-name">${p.name} (${qty[p.id]} kg)</span>
+      <span class="si-val">${fmt(sub)}</span>
+    </div>`;
+  }).join('');
   document.getElementById('grand-total').textContent = fmt(total);
-
-  const footer = document.getElementById('drawer-footer');
-  footer.style.display = 'block';
-  renderPayPal();
 }
 
-let paypalRendered = false;
-function renderPayPal() {
-  if (paypalRendered) return;
-  if (typeof paypal === 'undefined') return;
-  paypalRendered = true;
+/* ── Validation ── */
+function validate() {
+  let ok = true;
 
-  paypal.Buttons({
-    style: {
-      layout: 'vertical',
-      color: 'gold',
-      shape: 'rect',
-      label: 'pay'
-    },
-    createOrder(data, actions) {
-      const vorname = document.getElementById('f-vorname').value.trim();
-      const nachname = document.getElementById('f-nachname').value.trim();
-      const email = document.getElementById('f-email').value.trim();
-      if (!vorname || !nachname || !email) {
-        showToast('Bitte füllen Sie Vor- und Nachname sowie E-Mail aus.');
-        return Promise.reject();
-      }
-      const total = cartTotal().toFixed(2);
-      return actions.order.create({
-        purchase_units: [{
-          description: 'Bestellung – Fleischerei Korkmaz',
-          amount: { currency_code: 'EUR', value: total }
-        }]
-      });
-    },
-    onApprove(data, actions) {
-      return actions.order.capture().then(details => {
-        const name = details.payer.name.given_name;
-        cart = {};
-        paypalRendered = false;
-        document.getElementById('paypal-button-container').innerHTML = '';
-        updateCartUI();
-        toggleCart();
-        showToast(`Vielen Dank, ${name}! Ihre Bestellung wurde erfolgreich aufgegeben.`);
-      });
-    },
-    onError(err) {
-      showToast('Zahlung fehlgeschlagen. Bitte versuchen Sie es erneut.');
-      console.error(err);
-    }
-  }).render('#paypal-button-container');
+  const hasProducts = PRODUCTS.some(p => qty[p.id] > 0);
+  if (!hasProducts) {
+    alert('Bitte wählen Sie mindestens ein Produkt aus.');
+    ok = false;
+  }
+
+  const name = document.getElementById('f-name').value.trim();
+  setErr('f-name', 'err-name', !name);
+  if (!name) ok = false;
+
+  const phone = document.getElementById('f-phone').value.trim();
+  setErr('f-phone', 'err-phone', !phone);
+  if (!phone) ok = false;
+
+  const date = document.getElementById('f-date').value;
+  setErr('f-date', 'err-date', !date);
+  if (!date) ok = false;
+
+  const agb = document.getElementById('f-agb').checked;
+  document.getElementById('agb-wrap').classList.toggle('error', !agb);
+  document.getElementById('err-agb').classList.toggle('show', !agb);
+  if (!agb) ok = false;
+
+  return ok;
 }
 
-function toggleCart() {
-  const drawer = document.getElementById('drawer');
-  const overlay = document.getElementById('overlay');
-  const open = drawer.classList.toggle('open');
-  overlay.classList.toggle('open', open);
-  document.body.style.overflow = open ? 'hidden' : '';
+function setErr(fieldId, errId, isErr) {
+  document.getElementById(fieldId).classList.toggle('error', isErr);
+  document.getElementById(errId).classList.toggle('show', isErr);
 }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 3000);
+/* ── Submit ── */
+document.getElementById('order-form').addEventListener('submit', function(e) {
+  e.preventDefault();
+  if (!validate()) return;
+
+  const btn = document.getElementById('submit-btn');
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet …';
+
+  // Build order summary for mailto
+  const name  = document.getElementById('f-name').value.trim();
+  const phone = document.getElementById('f-phone').value.trim();
+  const date  = document.getElementById('f-date').value;
+  const note  = document.getElementById('f-note').value.trim();
+
+  const items = PRODUCTS.filter(p => qty[p.id] > 0);
+  let total = 0;
+  const lines = items.map(p => {
+    const sub = p.price * qty[p.id];
+    total += sub;
+    return `${p.name}: ${qty[p.id]} kg × ${fmt(p.price)} = ${fmt(sub)}`;
+  });
+
+  const body = [
+    'NEUE BESTELLUNG – Fleischerei Korkmaz',
+    '======================================',
+    '',
+    'KONTAKT',
+    `Name: ${name}`,
+    `Telefon: ${phone}`,
+    `Datum: ${date}`,
+    note ? `Anmerkungen: ${note}` : '',
+    '',
+    'PRODUKTE',
+    ...lines,
+    '',
+    `GESAMT: ${fmt(total)}`,
+  ].filter(l => l !== undefined).join('\n');
+
+  // Open mailto – fallback when no backend is configured
+  const mailto = `mailto:bestellung@fleischerei-korkmaz.de?subject=${encodeURIComponent('Online-Bestellung – ' + name)}&body=${encodeURIComponent(body)}`;
+  window.location.href = mailto;
+
+  // Show success overlay after short delay
+  setTimeout(() => {
+    btn.disabled = false;
+    btn.textContent = 'Jetzt verbindlich bestellen →';
+    document.getElementById('success-msg').textContent =
+      `Vielen Dank, ${name}! Ihre Bestellung wurde vorbereitet. ` +
+      `Wir melden uns telefonisch unter ${phone} zur Bestätigung.`;
+    document.getElementById('success-screen').classList.add('show');
+    document.body.style.overflow = 'hidden';
+  }, 800);
+});
+
+function resetForm() {
+  PRODUCTS.forEach(p => {
+    qty[p.id] = 0;
+    const inp = document.getElementById('qin-' + p.id);
+    if (inp) inp.value = 0;
+    updateRow(p.id);
+  });
+  updateSummary();
+  document.getElementById('order-form').reset();
+  document.getElementById('success-screen').classList.remove('show');
+  document.body.style.overflow = '';
 }
+
+/* ── AGB modal ── */
+function openAgb(e) {
+  e.stopPropagation();
+  document.getElementById('agb-modal').classList.add('show');
+}
+function closeAgb() {
+  document.getElementById('agb-modal').classList.remove('show');
+}
+
+/* ── Set min date to today ── */
+const today = new Date().toISOString().split('T')[0];
+document.getElementById('f-date').min = today;
 
 renderProducts();
 </script>
